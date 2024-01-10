@@ -5,7 +5,7 @@ Enter the YouTube channel ID(s) and perform data collection, storage, and SQL qu
 
 ## Prerequisites
 
-## pip install the below packages in command prompt:
+## pip install the below packages in terminal:
 
 - pymongo
 - psycopg2

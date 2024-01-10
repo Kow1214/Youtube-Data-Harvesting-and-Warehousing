@@ -13,9 +13,26 @@ Enter the YouTube channel ID(s) and perform data collection, storage, and SQL qu
 - streamlit as st
 - googleapiclient.discovery import build
 
-## You require an API key to fetch the data from youtube:
+## To Run the Streamlit app in the terminal:
 
-**https://developers.google.com/youtube/v3/getting-started**
+**streamlit run VYoutubeproject.py**
+
+Open the provided link (usually http://localhost:8501) in your web browser.
+
+
+## Workflow:
+1. Create a Streamlit Dashboard.
+2. Obtain API credentials by enabling YouTube Data API in Google Developers console(**https://developers.google.com/youtube/v3/getting-started**).
+3. Using appropriate API requests extract YouTube Channel, Playlist, Video and Comment data.
+4. Store the extracted YouTube data into MongoDB using the 'pymongo' library.
+5. Migrate the data in MongoDB to SQL tables.
+6. Develop SQL queries within the Streamlit app to retrieve specific information from the SQL database.
+
+## How to use streamlit app:
+1. Input YouTube channel IDs in the Streamlit app to collect and store data.
+2. Migrate data to SQL by clicking the corresponding button.
+3. Use the second tab for SQL queries and analysis.
+
 
 ## License
 

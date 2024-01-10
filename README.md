@@ -17,7 +17,7 @@ Enter the YouTube channel ID(s) and perform data collection, storage, and SQL qu
 
   ## To Run the Streamlit app in the terminal:
 
-  **streamlit run VYoutubeproject.py**
+  **Use command**: streamlit run VYoutubeproject.py
     
     Open the provided link (usually http://localhost:8501) in your web browser.
 

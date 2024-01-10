@@ -5,19 +5,19 @@ Enter the YouTube channel ID(s) and perform data collection, storage, and SQL qu
 
 ## Prerequisites
 
-## pip install the below packages in terminal:
+  ## Install the below packages using pip install in terminal:
 
-- pymongo
-- psycopg2
-- pandas as pd
-- streamlit as st
-- googleapiclient.discovery import build
+    - pymongo
+    - psycopg2
+    - pandas as pd
+    - streamlit as st
+    - googleapiclient.discovery import build
 
-## To Run the Streamlit app in the terminal:
+  ## To Run the Streamlit app in the terminal:
 
-**streamlit run VYoutubeproject.py**
-
-Open the provided link (usually http://localhost:8501) in your web browser.
+    **streamlit run VYoutubeproject.py**
+    
+    Open the provided link (usually http://localhost:8501) in your web browser.
 
 
 ## Workflow:

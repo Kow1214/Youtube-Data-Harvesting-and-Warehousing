@@ -5,7 +5,7 @@ Enter the YouTube channel ID(s) and perform data collection, storage, and SQL qu
 
 ## Prerequisites
 
-##pip install the below packages in command prompt:
+## pip install the below packages in command prompt:
 
 - pymongo
 - psycopg2
@@ -13,7 +13,7 @@ Enter the YouTube channel ID(s) and perform data collection, storage, and SQL qu
 - streamlit as st
 - googleapiclient.discovery import build
 
-##You require an API key to fetch the data from youtube:
+## You require an API key to fetch the data from youtube:
 
 **https://developers.google.com/youtube/v3/getting-started**
 

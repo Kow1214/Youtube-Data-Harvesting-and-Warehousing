@@ -160,10 +160,11 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded",
 )
-st.title(":chart_with_upwards_trend: Youtube Data Harvesting and Warehousing")
-st.markdown("**CHOOSE A TAB**")
+st.title(":chart_with_upwards_trend: :red[Youtube Data Harvesting and Warehousing]")
+#st.markdown("**CHOOSE A TAB**")
 
-#st.sidebar.header("Sidebar Header")
+
+
 tab1,tab2= st.tabs(["Youtube Scrapping","Queries"])
 with tab1:
     # upload to MongoDB
@@ -495,15 +496,12 @@ with tab1:
         comments_table = st.dataframe(com_list)
         return comments_table
 
-    with st.sidebar:
-        st.title(":green[YOUTUBE DATA HARVESTING AND WAREHOUSING]")
-        st.header(":green[SKILL TAKE AWAY]")
-        st.caption('Python scripting')
-        st.caption("Data Collection")
-        st.caption("MongoDB")
-        st.caption("API Integration")
-        st.caption(" Data Managment using MongoDB and SQL")
-        
+    st.sidebar.image("https://th.bing.com/th/id/OIP.kKDjpR2wdUn3xX-Xp8J29QHaE8?w=280&h=110&c=7&r=0&o=5&dpr=1.3&pid=1.7")
+    st.sidebar.title(":red[Goal of this site:]")
+    st.sidebar.caption("To create a Streamlit dashboard that enables users to analyze and display various statistics for a given YouTube channel. Users should be able to enter channel IDs and the dashboard would deliver insights.")
+    st.sidebar.title(":red[Benefits of this site:]")
+    st.sidebar.caption('This dashboard offers practical solutions for YouTube content creators, businesses, and marketers who want to analyze their video performance and audience engagement. Users may make data-driven decisions to optimize their content strategy, increase viewer retention, and enhance overall video performance.') 
+    
     channel_id = st.text_input("Enter the Channel id")
     channels = channel_id.split(',')
     channels = [ch.strip() for ch in channels if ch]

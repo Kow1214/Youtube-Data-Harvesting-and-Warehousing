@@ -2,13 +2,14 @@
 
 This project is a Streamlit web application for harvesting and warehousing YouTube data. It interacts with the YouTube API, stores data in MongoDB, and performs various data analysis queries using PostgreSQL.
 
+***Home Page:***
+![image](https://github.com/Kow1214/Youtube-Data-Harvesting-and-Warehousing/assets/121381571/31eba5ab-8771-43ed-a7c1-633a01055e93)
+
 ***Data Scrapping part:***
-![image](https://github.com/Kow1214/Youtube-Data-Harvesting-and-Warehousing/assets/121381571/ec3bb584-f4f1-4a5e-8cf7-52e013ad8e99)
+![image](https://github.com/Kow1214/Youtube-Data-Harvesting-and-Warehousing/assets/121381571/0c944625-b21d-40d6-ac7e-fb490b390fbc)
 
 ***Data Analyzing part:***
-![image](https://github.com/Kow1214/Youtube-Data-Harvesting-and-Warehousing/assets/121381571/90d321fc-7bc0-4fe8-ab6a-f032b2732007)
-
-
+![image](https://github.com/Kow1214/Youtube-Data-Harvesting-and-Warehousing/assets/121381571/0659ad94-0c1f-4047-87b8-3bbcfc34afe7)
 
 Enter the YouTube channel ID(s) and perform data collection, storage, and SQL queries as needed.
 

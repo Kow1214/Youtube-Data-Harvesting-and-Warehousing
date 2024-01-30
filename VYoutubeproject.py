@@ -3,6 +3,9 @@ import psycopg2
 import pandas as pd
 import streamlit as st
 from googleapiclient.discovery import build
+from PIL import Image
+from streamlit_option_menu import option_menu
+import base64
 
 #API key connection
 def Api_connect():
@@ -155,20 +158,34 @@ client= pymongo.MongoClient('mongodb://localhost:27017')
 db= client["youtube_data"]
 
 st.set_page_config(
-    page_title="Youtube Data Harvesting and Warehousing",
+    page_title="YOUTUBE DATA HARVESTING AND WAREHOUSING",
     page_icon=":chart_with_upwards_trend:",
     layout="wide",
-    initial_sidebar_state="expanded",
-)
+    initial_sidebar_state="expanded")
+
 st.title(":chart_with_upwards_trend: :red[Youtube Data Harvesting and Warehousing]")
-#st.markdown("**CHOOSE A TAB**")
 
-
-
-tab1,tab2= st.tabs(["Youtube Scrapping","Queries"])
-with tab1:
+# CREATING OPTION MENU
+with st.sidebar:
+    selected = option_menu(None, ["Home","Scrap and Transform","Data Analysis"], 
+                           icons=["house-door-fill","database-fill-gear","file-earmark-bar-graph"],
+                           default_index=0,
+                           orientation="vertical",
+                           styles={"nav-link": {"font-size": "30px", "text-align": "centre", "margin": "0px", 
+                                                "--hover-color": "#C80101"},
+                                   "icon": {"font-size": "30px"},
+                                   "container" : {"max-width": "6000px"},
+                                   "nav-link-selected": {"background-color": "#C80101"}})
+if selected == "Home":
+    #st.image("https://th.bing.com/th/id/OIP.kKDjpR2wdUn3xX-Xp8J29QHaE8?w=280&h=110&c=7&r=0&o=5&dpr=1.3&pid=1.7")
+    st.title(":red[Goal of this site:]")
+    st.caption("To create a Streamlit dashboard that enables users to analyze and display various statistics for a given YouTube channel. Users should be able to enter channel IDs and the dashboard would deliver insights.")
+    st.title(":red[Benefits of this site:]")
+    st.caption('This dashboard offers practical solutions for YouTube content creators, businesses, and marketers who want to analyze their video performance and audience engagement. Users may make data-driven decisions to optimize their content strategy, increase viewer retention, and enhance overall video performance.') 
+    
+elif selected == "Scrap and Transform":
+    st.caption("(This will utilize the YouTube API to extract channel information, storing it in a structured format in MongoDB, and subsequently migrating the data into SQL tables.)")
     # upload to MongoDB
-
     def channel_details(channel_id):
         ch_details = get_channel_info(channel_id)
         pl_details = get_playlist_info(channel_id)
@@ -495,46 +512,51 @@ with tab1:
                 com_list.append(com_data["comment_information"][i])
         comments_table = st.dataframe(com_list)
         return comments_table
-
-    st.sidebar.image("https://th.bing.com/th/id/OIP.kKDjpR2wdUn3xX-Xp8J29QHaE8?w=280&h=110&c=7&r=0&o=5&dpr=1.3&pid=1.7")
-    st.sidebar.title(":red[Goal of this site:]")
-    st.sidebar.caption("To create a Streamlit dashboard that enables users to analyze and display various statistics for a given YouTube channel. Users should be able to enter channel IDs and the dashboard would deliver insights.")
-    st.sidebar.title(":red[Benefits of this site:]")
-    st.sidebar.caption('This dashboard offers practical solutions for YouTube content creators, businesses, and marketers who want to analyze their video performance and audience engagement. Users may make data-driven decisions to optimize their content strategy, increase viewer retention, and enhance overall video performance.') 
-    
     channel_id = st.text_input("Enter the Channel id")
     channels = channel_id.split(',')
     channels = [ch.strip() for ch in channels if ch]
 
-    if st.button("Collect and Store data"):
-        for channel in channels:
-            ch_ids = []
-            db = client["youtube_data"]
-            coll1 = db["channel_details"]
-            for ch_data in coll1.find({},{"_id":0,"channel_information":1}):
-                ch_ids.append(ch_data["channel_information"]["Channel_Id"])
-            if channel in ch_ids:
-                st.success("Channel details of the given channel id: " + channel + " already exists")
-            else:
-                output = channel_details(channel)
-                st.success(output)
-                
-    if st.button("Migrate to SQL"):
-        display = tables()
-        st.success(display)
     
-    show_table = st.radio("SELECT THE TABLE FOR VIEW",(":black[channels]",":black[playlists]",":black[videos]",":black[comments]"))
+    col1, col2,col3 = st.columns(3)
 
-    if show_table == ":black[channels]":
+    with col1:
+        if st.button("Collect and Store data"):
+            for channel in channels:
+                ch_ids = []
+                db = client["youtube_data"]
+                coll1 = db["channel_details"]
+                for ch_data in coll1.find({}, {"_id": 0, "channel_information": 1}):
+                    ch_ids.append(ch_data["channel_information"]["Channel_Id"])
+                if channel in ch_ids:
+                    st.success("Channel details of the given channel id: " + channel + " already exist")
+                else:
+                    output = channel_details(channel)
+                    st.success(output)
+
+    with col2:          
+        if st.button("Migrate to SQL"):
+            display = tables()
+            st.success(display)
+    
+    selected_table = st.sidebar.selectbox(
+        'Choose a Table:',
+        ("Channels", "Playlists", "Videos", "Comments")
+    )
+    
+    #show_table = st.radio("Choose Table:", (":black[Channels]", ":black[Playlists]", ":black[Videos]", ":black[Comments]"))
+    if selected_table == "Channels":
         show_channels_table()
-    elif show_table == ":black[playlists]":
+    elif selected_table == "Playlists":
         show_playlists_table()
-    elif show_table ==":black[videos]":
+    elif selected_table == "Videos":
         show_videos_table()
-    elif show_table == ":black[comments]":
+    elif selected_table == "Comments":
         show_comments_table()
-            
-with tab2:
+
+
+
+elif selected == "Data Analysis":
+    st.caption("(This analyzes a dataset of channel information, presenting the outcomes in a table format according to the chosen queries.)")
     #SQL connection
 
     mydb = psycopg2.connect(host="localhost",
@@ -639,3 +661,4 @@ with tab2:
         mydb.commit()
         t10=cursor.fetchall()
         st.write(pd.DataFrame(t10, columns=['Video Title', 'Channel Name', 'NO Of Comments']))
+    
